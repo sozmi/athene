@@ -7,8 +7,9 @@ from yaml.parser import ParserError
 from schema import SchemaError
 import yaml
 
-from tools.scheme import get_config_schema
-
+from backend.tools.scheme import get_config_schema
+from backend.main import start as start_backend
+from frontend.main import start as start_front
 
 def get_config():
     """
@@ -16,7 +17,7 @@ def get_config():
     :return: конфигурационный файл
     """
     config_path = 'config.yaml'
-    scheme_path = 'tools/scheme.py'
+    scheme_path = 'backend/tools/scheme.py'
     if not os.path.isfile(config_path):
         log.error('Отсутствует файл конфигурации %s', config_path)
         return
@@ -49,16 +50,11 @@ def main():
 
     app_name = data['app']['name']
     log.info('Программа запуска %s стартовала', app_name)
-    mode = data['app']['mode']
-    if mode == 'console':
-        from modules.console.main import start
-    elif mode == 'web':
-        from modules.web.main import start
-    elif mode == 'app':
-        from modules.app.main import start
-    else:
-        return
-    start()
+    log.info('Запуск бэкенда')
+    start_backend()
+    # create_db_and_tables()
+    log.info('Запуск фронтенда')
+    start_front()
     log.info('Программа запуска %s завершила работу', app_name)
 
 
