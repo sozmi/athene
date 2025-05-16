@@ -15,14 +15,20 @@ def get_image_by_id(id: int):
     image = select_image(id)
     image_path = Path(f'{ROOT_DIR}/data/{image.path}')
     if not image_path.is_file():
-        return {'error': 'Image not found on the server'}
+        return {'error': 'Изображение не найдено на сервере!'}
     file = iter_file(image_path)
     return StreamingResponse(file)
 
 @image_router.get('/temp/images/{path}', tags=['Images'])
 def get_image_by_path(path: str):
-    image_path = Path(f'{ROOT_DIR}/data/temp/images/{image.path}')
+    image_path = Path(f'{ROOT_DIR}/data/temp/images/{path}')
     if not image_path.is_file():
-        return {'error': 'Image not found on the server'}
+        return {'error': 'Изображение не найдено на сервере!'}
     file = iter_file(image_path)
     return StreamingResponse(file)
+
+@image_router.post('/images/load', tags=['Images'])
+def load_images(query: str, label: str, count: int):
+    #TODO: реализовать скачивание во временную директорию
+    names = ['0000.jpg', '0001.jpg', '0006.jpg']
+    return names
