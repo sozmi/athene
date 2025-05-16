@@ -2,8 +2,8 @@
 Запросы к БД
 """
 from sqlmodel import Session, select
-from backend.db.models.user_model import *
-from backend.db import engine
+from db.models.user_model import *
+from db import engine
 
 
 def select_all_users():
@@ -13,8 +13,14 @@ def select_all_users():
         return result.all()
 
 
-def select_user(username):
+def select_user_by_name(username):
     with Session(engine) as session:
         statement = select(User).where(User.username == username)
+        result = session.exec(statement)
+        return result.first()
+
+def select_user_by_id(id):
+    with Session(engine) as session:
+        statement = select(User).where(User.id == id)
         result = session.exec(statement)
         return result.first()

@@ -4,16 +4,56 @@ name = "Описание"
 icon = "🏠"
 
 [[pages]]
-path = "pages/model_train.py"
-name = "Обучение модели"
-icon = ":books:"
+name = "Аккаунт"
+icon = "👤"
+is_section = true
 
 [[pages]]
-path = "pages/classification.py"
-name = "Классификация изображения"
+path = "pages/user/login.py"
+name = "Вход"
+icon = "👤"
+
+[[pages]]
+path = "pages/user/registration.py"
+name = "Регистрация"
+icon = "👤"
+
+[[pages]]
+path = "pages/user/account.py"
+name = "Информация"
+icon = "👤"
+
+[[pages]]
+path = "pages/user/logout.py"
+name = "Выход"
+icon = "👤"
+
+[[pages]]
+name = "Модели"
+icon = "✨"
+is_section = true
+
+[[pages]]
+path = "pages/model/model_train.py"
+name = "Обучение"
+icon = "🎓"
+
+[[pages]]
+path = "pages/model/model_info.py"
+name = "Информация"
+icon = "📚"
+
+[[pages]]
+name = "Изображения"
+icon = "✨"
+is_section = true
+
+[[pages]]
+path = "pages/image/classification.py"
+name = "Классификация"
 icon = "🔍"
 
 [[pages]]
-path = "pages/authorization.py"
-name = "Авторизация"
-icon = "👤"
+path = "pages/image/load.py"
+name = "Загрузка"
+icon = "🔍"

@@ -2,7 +2,8 @@
 Запросы к БД
 """
 from sqlmodel import Session, select
-from backend.db import engine
+from db.models.image_model import *
+from db import engine
 
 
 def select_all_images():

@@ -3,10 +3,10 @@ from fastapi.params import Depends
 from starlette.responses import JSONResponse
 from starlette.status import HTTP_201_CREATED, HTTP_400_BAD_REQUEST, HTTP_401_UNAUTHORIZED
 
-from backend.db import session
-from backend.db.models.user_model import UserInput, User, UserLogin
-from backend.db.repos.user_repository import select_all_users, select_user
-from backend.auth import auth_handler
+from db import session
+from db.models.user_model import UserInput, User, UserLogin
+from db.repos.user_repository import select_all_users, select_user_by_name
+from auth import auth_handler
 
 user_router = APIRouter()
 
@@ -20,11 +20,12 @@ def register(user: UserInput):
     u = User(username=user.username, password=hashed_pwd, email=user.email)
     session.add(u)
     session.commit()
-    return JSONResponse(status_code=HTTP_201_CREATED, content='Поздравляем с успешной регистрацией!')
+    token = auth_handler.encode_token(u.id)
+    return {'token': token}
 
 @user_router.post('/login', tags=['Users'])
 def login(user: UserLogin):
-    user_found = select_user(user.username)
+    user_found = select_user_by_name(user.username)
     print(user_found)
     if not user_found:
         raise HTTPException(status_code=HTTP_401_UNAUTHORIZED, detail='Пользователь не существует')
@@ -35,6 +36,6 @@ def login(user: UserLogin):
     return {'token': token}
 
 
-@user_router.get('/users/me', tags=['users'])
+@user_router.get('/account', tags=['Users'])
 def get_current_user(user: User = Depends(auth_handler.get_current_user)):
     return user

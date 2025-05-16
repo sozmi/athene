@@ -1,4 +1,3 @@
-import os
 import keras
 import numpy as np
 
@@ -8,8 +7,9 @@ class ModelManager:
         self.model = None
 
     def load_model(self, path):
-        self.model = keras.saving.load_model(path)
-        self.model_path = path
+        if self.model_path != path:
+            self.model = keras.saving.load_model(path)
+            self.model_path = path
 
     def predict_image(self, image_path):
         img = keras.preprocessing.image.load_img(image_path, target_size=(512, 512))

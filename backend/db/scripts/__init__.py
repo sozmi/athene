@@ -3,7 +3,10 @@
 """
 from sqlmodel import Session
 
-from backend.db.models.keras_model import *
+from db import engine
+from db.models.image_model import *
+from db.models.keras_model import *
+from db.models.user_model import *
 
 def create_db_and_tables():
     SQLModel.metadata.create_all(engine)

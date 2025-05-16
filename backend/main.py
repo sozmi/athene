@@ -4,10 +4,11 @@ import uvicorn
 from fastapi import FastAPI
 from uvicorn import Config, Server
 
-from backend.endpoints.image_endpoints import image_router
-from backend.endpoints.label_endpoints import label_router
-from backend.endpoints.user_endpoints import user_router
-from backend.endpoints.model_endpoints import model_router
+from db.scripts import create_db_and_tables
+from endpoints.image import image_router
+from endpoints.label import label_router
+from endpoints.user import user_router
+from endpoints.model import model_router
 
 app = FastAPI()
 app.include_router(label_router)
@@ -37,8 +38,7 @@ def start():
     instance.stop()
 
 
-#from db.populate import create_db_and_tables
-#create_db_and_tables()
+create_db_and_tables()
 
 if __name__ == '__main__':
     uvicorn.run('main:app', host='localhost', port=8000, reload=True)

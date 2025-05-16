@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 
 from starlette.status import HTTP_401_UNAUTHORIZED
 
-from backend.db.repos.user_repository import select_user
+from db.repos.user_repository import select_user_by_id
 
 class AuthHandler:
     security = HTTPBearer()
@@ -45,7 +45,7 @@ class AuthHandler:
         if uid is None:
             raise credentials_exception
         uid = int(uid)
-        user = select_user(uid)
+        user = select_user_by_id(uid)
         if user is None:
             raise credentials_exception
         return user
