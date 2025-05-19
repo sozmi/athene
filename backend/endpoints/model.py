@@ -1,4 +1,6 @@
+import os
 from http.client import HTTPException
+from typing import List
 
 import pandas as pd
 from fastapi import APIRouter, Depends, UploadFile, File
@@ -39,7 +41,9 @@ def classify(model_path: str, image: UploadFile = File(...)):
         image_path = ROOT_DIR + "/data/temp/" + image.filename
         with open(image_path, 'wb') as f:
             f.write(contents)
-        return mm.classify(image_path, ROOT_DIR + "/data/models/" + model_path)
+        res = mm.classify(image_path, ROOT_DIR + "/data/models/" + model_path, model_path)
+        os.remove(image_path)
+        return res
     except Exception:
         raise HTTPException(status_code=HTTP_500_INTERNAL_SERVER_ERROR,
                             detail='Слишком долгое ожидание')
@@ -63,3 +67,15 @@ def get_model_history(path: str):
     df = pd.read_csv(history_path, sep=',', engine='python')
     result = df.to_dict(orient="records")
     return {"data": result}
+
+@model_router.post('/train', tags=['Models'])
+def train(model_path: str, epc: int, lids: List[int]):
+    model = select_model_by_path(model_path)
+    classes = [str(n) for n in lids]
+    model_name = model_path.removesuffix('.keras')
+    if model:
+        mm.load_model(model_path)
+        mm.train(model_name, classes, epc)
+    else:
+        mm.train_new(model_name, classes, epc)
+    return {"detail": "Модель обучена"}

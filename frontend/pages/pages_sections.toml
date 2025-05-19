@@ -57,3 +57,8 @@ icon = "🔍"
 path = "pages/image/load.py"
 name = "Загрузка"
 icon = "🔍"
+
+[[pages]]
+path = "pages/image/approve.py"
+name = "Подтверждение"
+icon = "✔️"

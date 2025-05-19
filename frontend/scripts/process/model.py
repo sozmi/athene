@@ -2,8 +2,9 @@ import http.client
 
 import requests
 import streamlit as st
+from altair import param
 
-from scripts.process import API_MODELS, API_MODEL_HISTORY, API_MODEL_INFO, API_CLASSIFY
+from scripts.process import API_MODELS, API_MODEL_HISTORY, API_MODEL_INFO, API_CLASSIFY, API_TRAIN
 from scripts import get_access_header
 
 
@@ -37,6 +38,17 @@ def classification_proc(image, model):
     payload = {"model_path": model}
     files = {"image": image.getvalue()}
     response = requests.post(API_CLASSIFY, params=payload, files=files, headers=get_access_header())
+    http.client.HTTPConnection.debuglevel = 1
+    if response.status_code != 200:
+        st.error(response.text)
+        #st.stop()
+        return None
+    return response.json()
+
+def train_proc(model_path, lids, epc):
+    params = {'model_path': model_path, 'epc': epc, 'lids': lids}
+    data = {"lids": lids}
+    response = requests.post(API_TRAIN, params=params, json=lids, headers=get_access_header())
     http.client.HTTPConnection.debuglevel = 1
     if response.status_code != 200:
         st.error(response.text)

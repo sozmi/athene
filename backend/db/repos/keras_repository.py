@@ -3,7 +3,7 @@
 """
 from sqlmodel import Session, select
 from db.models.keras_model import *
-from db import engine
+from db import engine, session
 
 
 def select_all_models():
@@ -20,9 +20,15 @@ def select_model_by_id(id):
         result = session.exec(statement)
         return result.first()
 
+
 def select_model_by_path(path):
     with Session(engine) as session:
         statement = select(KerasModel).where(KerasModel.path == path)
         result = session.exec(statement)
         return result.first()
 
+
+def create_model(path, history, classes):
+    km = KerasModel(path=path, history_path=history, lids = classes)
+    session.add(km)
+    session.commit()

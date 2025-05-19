@@ -10,8 +10,7 @@ from auth import auth_handler
 
 user_router = APIRouter()
 
-@user_router.post('/registration', status_code=HTTP_201_CREATED, tags=['Users'],
-                  description='Регистрация нового пользователя')
+@user_router.post('/registration', tags=['Users'], description='Регистрация нового пользователя')
 def register(user: UserInput):
     users = select_all_users()
     if any(x.username == user.username for x in users):

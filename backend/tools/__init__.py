@@ -1,3 +1,4 @@
+import os
 from time import sleep
 
 def awaits(sec):
@@ -12,3 +13,8 @@ def awaits(sec):
 def iter_file(path):
     with open(path, 'rb') as f:
         yield from f
+
+
+def mkdir(path):
+    if not os.path.isdir(path):
+        os.mkdir(path)

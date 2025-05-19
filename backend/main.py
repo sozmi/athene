@@ -9,6 +9,7 @@ from endpoints.image import image_router
 from endpoints.label import label_router
 from endpoints.user import user_router
 from endpoints.model import model_router
+import logging as log
 
 app = FastAPI()
 app.include_router(label_router)
@@ -41,4 +42,5 @@ def start():
 create_db_and_tables()
 
 if __name__ == '__main__':
+    log.basicConfig(level=log.DEBUG)
     uvicorn.run('main:app', host='localhost', port=8000, reload=True)
