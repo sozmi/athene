@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  client:
+    build: .
+    working_dir: /app
+    command: [ "streamlit", "run", "main.py", "--server.port=8501", "--server.address=0.0.0.0"]
+    ports:
+      - "8501:8501"
+    networks:
+      - backend_network
+    depends_on:
+      - web
+    volumes:
+      - .:/app

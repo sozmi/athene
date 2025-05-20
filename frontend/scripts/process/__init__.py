@@ -1,5 +1,5 @@
-API_URL = 'http://localhost:8000'
-
+API_URL = 'http://web'
+API_BACKEND_URL = 'http://localhost:8000'
 #Users - api
 API_LOGIN = f'{API_URL}/login'
 API_REGISTER = f'{API_URL}/registration'
@@ -15,7 +15,7 @@ API_TRAIN = f'{API_URL}/train'
 #Images - api
 API_LOAD_IMAGES = f'{API_URL}/images/image/load'
 API_APPROVE_IMAGES = f'{API_URL}/images/approve'
-API_GET_TEMP_IMAGE = f'{API_URL}/temp/images/'
+API_GET_TEMP_IMAGE = f'{API_BACKEND_URL}/temp/images/'
 API_GET_UNVERIFY_IMAGES = f'{API_URL}/images/image/unverify'
 
 #Labels - api

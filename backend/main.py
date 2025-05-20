@@ -39,8 +39,8 @@ def start():
     instance.stop()
 
 
-create_db_and_tables()
+#create_db_and_tables()
 
 if __name__ == '__main__':
     log.basicConfig(level=log.DEBUG)
-    uvicorn.run('main:app', host='localhost', port=8000, reload=True)
+    #uvicorn.run('main:app', host='localhost', port=8000, reload=True)

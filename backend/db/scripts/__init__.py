@@ -3,7 +3,7 @@
 """
 from sqlmodel import SQLModel
 
-from db import engine
+from db import engine, session
 import db.models.image_model
 import db.models.keras_model
 import db.models.user_model

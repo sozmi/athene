@@ -7,5 +7,7 @@ services:
       POSTGRES_PASSWORD: "100"
     ports:
       - "5432:5432"
+    networks:
+      - backend_network
     volumes:
       - ./scripts:/docker-entrypoint-initdb.d

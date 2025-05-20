@@ -99,7 +99,7 @@ class ModelManager:
                        callbacks=[csv_logger])
 
         now = datetime.now()
-        sd = now.strftime('%Y-%m-%d %H-%M-%S')
+        sd = now.strftime('%Y_%m_%d_%H_%M_%S')
         self.model_path = f'{ROOT_DIR}/data/models/{name}_{sd}.keras'
         self.model.save(self.model_path)
         create_model(f'{name}_{sd}.keras', f'{name}.log', " ".join(classes))

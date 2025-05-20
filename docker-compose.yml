@@ -1,2 +1,7 @@
 include:
   - backend/db/docker-compose.yml
+  - backend/docker-compose.yml
+  - frontend/docker-compose.yml
+networks:
+  backend_network:
+    driver: bridge
