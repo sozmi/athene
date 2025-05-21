@@ -46,7 +46,7 @@ def classification_proc(image, model):
     return response.json()
 
 def train_proc(model_path, lids, epc):
-    params = {'model_path': model_path, 'epc': epc, 'lids': lids}
+    params = {'model_filename': model_path, 'epc': epc, 'lids': lids}
     data = {"lids": lids}
     response = requests.post(API_TRAIN, params=params, json=lids, headers=get_access_header())
     http.client.HTTPConnection.debuglevel = 1

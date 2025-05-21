@@ -69,12 +69,13 @@ def get_model_history(path: str):
     return {"data": result}
 
 @model_router.post('/train', tags=['Models'])
-def train(model_path: str, epc: int, lids: List[int]):
-    model = select_model_by_path(model_path)
+def train(model_filename: str, epc: int, lids: List[int]):
+    model = select_model_by_path(model_filename)
+    lids.sort()
     classes = [str(n) for n in lids]
-    model_name = model_path.removesuffix('.keras')
+    model_name = model_filename.removesuffix('.keras')
     if model:
-        mm.load_model(model_path)
+        mm.load_model(f'{ROOT_DIR}/data/models/{model_filename}')
         mm.train(model_name, classes, epc)
     else:
         mm.train_new(model_name, classes, epc)

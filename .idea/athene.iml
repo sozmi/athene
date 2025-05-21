@@ -5,8 +5,6 @@
       <excludeFolder url="file://$MODULE_DIR$/backend/.venv" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="backend" />
-    <orderEntry type="module" module-name="frontend" />
   </component>
   <component name="PyDocumentationSettings">
     <option name="format" value="GOOGLE" />
